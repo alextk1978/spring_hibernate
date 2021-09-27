@@ -4,10 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "cars")
-public class Car {
+public class Car implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +19,6 @@ public class Car {
 
     @Column(name = "series")
     private int series;
-
-    @Setter
-    @Getter
-    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
-    private User user;
 
     public Car() {
     }

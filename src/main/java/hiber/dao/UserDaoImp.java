@@ -17,6 +17,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public void add(User user) {
+        sessionFactory.getCurrentSession().save(user.getCar());
         sessionFactory.getCurrentSession().save(user);
     }
 
@@ -30,9 +31,8 @@ public class UserDaoImp implements UserDao {
     @Override
     public List<User> getUserByCar(String model, int series) {
         Session session = sessionFactory.openSession();
-        String HQL = "FROM User u LEFT OUTER JOIN FETCH u.car WHERE u.car.model=:modelcar AND u.car.series=:seriescar";
-
-        return session.createQuery(HQL, User.class).setParameter("modelcar", model)
+        return session.createQuery("FROM User u LEFT OUTER JOIN FETCH u.car WHERE u.car.model=:modelcar AND u.car.series=:seriescar"
+                        , User.class).setParameter("modelcar", model)
                 .setParameter("seriescar", series).list();
     }
 

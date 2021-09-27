@@ -5,11 +5,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @ToString
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +27,7 @@ public class User {
 
     @Getter
     @Setter
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "CAR_ID")
     private Car car;
 
